@@ -1,0 +1,30 @@
+---
+# tasks file for cifv2-tokens
+- name: "Set /home/cif/.profile/"
+  template: src=profile.j2 dest=/home/cif/.profile
+  tags: set-profile
+
+- name: "Create /etc/cif/cif-smrt.yml"
+  shell: '/opt/cif/bin/cif-tokens --username cif-smrt --new --write --generate-config-remote http://localhost:5000 --generate-config-path /etc/cif/cif-smrt.yml'
+  tags: create-cif-smrt-conf
+
+- name: "Change owner and perms on /etc/cif/cif-smrt.yml"
+  file: path=/etc/cif/cif-smrt.yml owner=cif group=cif mode=660
+  tags: change-cif-smrt-conf
+
+- name: "Create /etc/cif/cif-worker.yml"
+  shell: '/opt/cif/bin/cif-tokens --username cif-worker --new --read --write --generate-config-remote tcp://localhost:4961 --generate-config-path /etc/cif/cif-worker.yml'
+  tags: create-cif-worker-conf
+
+- name: "Change owner and perms on /etc/cif/cif-worker.yml"
+  file: path=/etc/cif/cif-worker.yml owner=cif group=cif mode=660
+  tags: change-cif-worker-conf
+
+- name: "Create ~/.cif.yml config for default user"
+  shell: "/opt/cif/bin/cif-tokens --username {{ ansible_ssh_user }}@localhost --new --read --write --generate-config-remote https://localhost --generate-config-path /home/{{ ansible_ssh_user }}/.cif.yml"
+  tags: create-cif-user-conf
+
+- name: "Change owner and perms on /home/{{ ansible_ssh_user }}/.cif.yml"
+  file: path=/home/{{ ansible_ssh_user }}/.cif.yml owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} mode=660
+  tags: change-cif-user-conf
+

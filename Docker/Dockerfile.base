@@ -1,13 +1,17 @@
+# this strictly for building base images
 FROM ubuntu
 MAINTAINER Wes Young (wes@csirtgadgets.org)
+
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y software-properties-common && \
     apt-add-repository ppa:ansible/ansible && \
     apt-get update && \
-    apt-get install -y ansible
+    apt-get install -y ansible && \
+    apt-get install -y cron
 
-ADD ansible /srv/cifv2_base
-WORKDIR /srv/cifv2_base
+ADD ansible /srv/cifv2
+WORKDIR /srv/cifv2
 
-RUN ansible-playbook docker.yml -c local
+RUN ansible-playbook docker.yml -c local -v

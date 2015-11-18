@@ -3,11 +3,12 @@
   hosts: localhost
   sudo: True
   vars:
+    cifv2_version: "2.00.00-rc.6"
+    cifv2_sdk_version: "2.00_30"
   roles:
     - { role: zmq, tags: role-zmq }
     - { role: geoipupdate, tags: role-geoipupdate }
     - { role: elasticsearch, tags: role-elasticsearch }
     - { role: apache2, tags: role-apache2 }
-    - { role: postfix, tags: role-postfix }
     - { role: bind9, tags: role-bind9 }
-    - { role: cifv2_base, tags: role-cifv2_base }
+    - { role: cifv2, tags: role-cifv2 }

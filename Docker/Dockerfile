@@ -1,15 +1,13 @@
-FROM ubuntu
-MAINTAINER Aaron Eppert (aeppert@gmail.com)
+# this strictly for building base images
+FROM cifv2:latest
+MAINTAINER Wes Young (wes@csirtgadgets.org)
 
-# Update the repository sources list
-RUN apt-get update
+ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get -y install curl
-RUN apt-get -y install wget
-RUN apt-get -y install gettext
-RUN apt-get -y install dnsutils
-RUN curl -Ls https://raw.githubusercontent.com/csirtgadgets/massive-octo-spice/master/hacking/platforms/easybutton_curl.sh | sudo bash -
-RUN sudo chown `whoami`:`whoami` ~/.cif.yml
+ADD ansible /srv/cifv2
+WORKDIR /srv/cifv2
+
+#RUN ansible-playbook docker.yml -c local -v
 
 ADD ./scripts/start.sh /start.sh
 ADD ./scripts/foreground.sh /etc/apache2/foreground.sh
@@ -17,7 +15,5 @@ RUN chmod 755 /start.sh
 RUN chmod 755 /etc/apache2/foreground.sh
 
 EXPOSE 443
-EXPOSE 5000
-EXPOSE 9200
 
 CMD ["/bin/bash", "/start.sh"]

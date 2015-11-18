@@ -1,0 +1,6 @@
+---
+- name: Configure localhost as all-in-one
+  hosts: localhost
+  sudo: True
+  roles:
+    - { role: cifv2-tokens, tags: role-cifv2-tokens }
