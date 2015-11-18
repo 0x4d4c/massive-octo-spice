@@ -1,0 +1,13 @@
+---
+- name: Configure localhost as all-in-one
+  hosts: localhost
+  sudo: True
+  vars:
+  roles:
+    - { role: zmq, tags: role-zmq }
+    - { role: geoipupdate, tags: role-geoipupdate }
+    - { role: elasticsearch, tags: role-elasticsearch }
+    - { role: apache2, tags: role-apache2 }
+    - { role: postfix, tags: role-postfix }
+    - { role: bind9, tags: role-bind9 }
+    - { role: cifv2_base, tags: role-cifv2_base }
