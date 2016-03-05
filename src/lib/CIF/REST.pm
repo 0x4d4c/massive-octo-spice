@@ -48,6 +48,9 @@ sub startup {
     $self->hook(after_render => sub {
         my ($c, $output, $format) = @_;
         $c->res->headers->append('X-CIF-Media-Type' => 'cif.v'.VERSION);
+        # cors stuff
+        $c->res->headers->append('Access-Control-Allow-Origin', '*');
+        $c->res->headers->append('Access-Control-Allow-Headers', 'x-requested-with');
     });
     
     # http://mojolicio.us/perldoc/Mojolicious/Guides/Rendering#Content-type
