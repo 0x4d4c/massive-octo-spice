@@ -25,8 +25,8 @@ apt-get install -qq software-properties-common python-software-properties
 
 if [ ! -f /etc/apt/sources.list.d/chris-lea-zeromq-trusty.list ]; then
     echo 'adding updated zmq repo....'
-    echo "yes" | sudo add-apt-repository "ppa:chris-lea/zeromq"
-    echo "yes" | sudo add-apt-repository "ppa:maxmind/ppa"
+    echo "yes" | add-apt-repository "ppa:chris-lea/zeromq"
+    echo "yes" | add-apt-repository "ppa:maxmind/ppa"
     wget -O - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
 fi
 
@@ -51,7 +51,7 @@ bash firewall.sh
 #fi
 
 echo 'installing cpanm...'
-curl -L https://cpanmin.us | sudo perl - App::cpanminus
+curl -L https://cpanmin.us | perl - App::cpanminus
 alias cpanm='cpanm --wget --mirror https://cpan.metacpan.org --skip-installed'
 
 cpanm Regexp::Common
@@ -159,7 +159,7 @@ bash bind9.sh
 cd ../../../
 
 echo 'staring cif-services...'
-sudo service cif-services start
+service cif-services start
 
 echo 'restarting apache...'
 service apache2 restart
