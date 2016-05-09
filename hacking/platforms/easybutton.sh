@@ -44,14 +44,14 @@ fi
 
 case $OS in
     "Ubuntu" )
-    	if [ $VER != "14.04" ]; then
-    		echo "Currently only 14.04 LTS is supported"
-    		echo "We accept Pull Requests! =)"
-    	else
-        	cd ubuntu
-       		bash ./ubuntu.sh
-       	fi
-       	;;
+        if [ "$VER" != "14.04" -a "$VER" != "16.04" ]; then
+            echo "Currently only 14.04 LTS and 16.04 LTS are supported"
+            echo "We accept Pull Requests! =)"
+        else
+            cd ubuntu
+            bash ./ubuntu.sh
+        fi
+        ;;
 
     "Debian" )
         echo 'Debian not yet supported...'
