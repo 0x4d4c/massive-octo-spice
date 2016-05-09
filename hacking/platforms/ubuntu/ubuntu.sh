@@ -27,13 +27,13 @@ if [ "$VER" = "14.04" -a ! -f /etc/apt/sources.list.d/chris-lea-zeromq-trusty.li
     echo 'adding updated zmq repo....'
     echo "yes" | add-apt-repository "ppa:chris-lea/zeromq"
     echo "yes" | add-apt-repository "ppa:maxmind/ppa"
-    wget -O - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
 fi
 
+wget -O - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
 if [ -f /etc/apt/sources.list.d/elasticsearch.list ]; then
     echo "sources.list.d/elasticsearch.list already exists, skipping..."
 else
-    echo "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main" >> /etc/apt/sources.list.d/elasticsearch.list
+    echo "deb http://packages.elasticsearch.org/elasticsearch/1.7/debian stable main" >> /etc/apt/sources.list.d/elasticsearch.list
 fi
 
 debconf-set-selections <<< "postfix postfix/mailname string localhost"
