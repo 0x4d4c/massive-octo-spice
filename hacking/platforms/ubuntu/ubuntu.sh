@@ -23,7 +23,7 @@ echo "Acquire::ForceIPv4 \"true\";" > /etc/apt/apt.conf.d/99force-ipv4
 apt-get update
 apt-get install -qq software-properties-common python-software-properties
 
-if [ ! -f /etc/apt/sources.list.d/chris-lea-zeromq-trusty.list ]; then
+if [ "$VER" = "14.04" -a ! -f /etc/apt/sources.list.d/chris-lea-zeromq-trusty.list ]; then
     echo 'adding updated zmq repo....'
     echo "yes" | add-apt-repository "ppa:chris-lea/zeromq"
     echo "yes" | add-apt-repository "ppa:maxmind/ppa"
