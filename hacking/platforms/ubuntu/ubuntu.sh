@@ -29,6 +29,11 @@ if [ "$VER" = "14.04" -a ! -f /etc/apt/sources.list.d/chris-lea-zeromq-trusty.li
     echo "yes" | add-apt-repository "ppa:maxmind/ppa"
 fi
 
+if [ "$VER" = "16.04" -a -z "$(grep -e '^deb .*archive.ubuntu.com/ubuntu/.* xenial .*multiverse.*$' /etc/apt/sources.list)" \
+    -a ! -f /etc/apt/sources.list.d/multiverse.list ]; then
+    echo "deb http://us.archive.ubuntu.com/ubuntu/ xenial multiverse" >> /etc/apt/sources.list.d/multiverse.list
+fi
+
 wget -O - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
 if [ -f /etc/apt/sources.list.d/elasticsearch.list ]; then
     echo "sources.list.d/elasticsearch.list already exists, skipping..."
