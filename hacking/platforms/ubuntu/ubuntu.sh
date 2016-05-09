@@ -15,7 +15,7 @@ if [ `whoami` != 'root' ]; then
 fi
 
 if [ -d /opt/cif ]; then
-	bash upgrade.sh
+    bash upgrade.sh
 fi
 
 echo "Acquire::ForceIPv4 \"true\";" > /etc/apt/apt.conf.d/99force-ipv4
@@ -100,8 +100,8 @@ make fixperms
 make elasticsearch
 
 if [ ! -f /etc/default/cif ]; then
-	echo 'setting /etc/default/cif'
-	cp ./hacking/packaging/ubuntu/default/cif /etc/default/cif
+    echo 'setting /etc/default/cif'
+    cp ./hacking/packaging/ubuntu/default/cif /etc/default/cif
 fi
 
 if [ ! -f /home/cif/.profile ]; then
