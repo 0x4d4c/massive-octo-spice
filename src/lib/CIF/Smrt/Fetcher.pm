@@ -54,10 +54,10 @@ sub _build_handle {
     
     # set both just in case we have legacy stuff laying around
     if(defined($args->{'tls_verify'}) && !$args->{'tls_verify'}){
-        $agent->ssl_opts(SSL_verify_mode => 'SSL_VERIFY_NONE');
+        $agent->ssl_opts(SSL_verify_mode => 0);
         $agent->ssl_opts(verify_hostname => 0);
     } else {
-        $agent->ssl_opts(SSL_verify_mode => 'SSL_VERIFY_PEER');
+        $agent->ssl_opts(SSL_verify_mode => 1);
     }
 
     $agent->env_proxy();
