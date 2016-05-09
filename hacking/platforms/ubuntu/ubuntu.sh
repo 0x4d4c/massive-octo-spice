@@ -44,8 +44,15 @@ fi
 debconf-set-selections <<< "postfix postfix/mailname string localhost"
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 
+packages="monit geoipupdate curl build-essential libmodule-build-perl libssl-dev elasticsearch apache2 libapache2-mod-perl2 curl mailutils build-essential git-core automake rng-tools libtool pkg-config vim htop bind9 libzmq3-dev libffi6 libmoose-perl libmouse-perl libanyevent-perl liblwp-protocol-https-perl libxml2-dev libexpat1-dev libgeoip-dev geoip-bin python-dev starman ntp"
+if [ "$VER" = "14.04" ]; then
+    packages="$packages openjdk-7-jre-headless"
+elif [ "$VER" = "16.04" ]; then
+    packages="$packages openjdk-8-jre-headless"
+fi
+
 apt-get update
-apt-get install -y monit geoipupdate curl build-essential libmodule-build-perl libssl-dev elasticsearch apache2 libapache2-mod-perl2 curl mailutils build-essential git-core automake rng-tools openjdk-7-jre-headless libtool pkg-config vim htop bind9 libzmq3-dev libffi6 libmoose-perl libmouse-perl libanyevent-perl liblwp-protocol-https-perl libxml2-dev libexpat1-dev libgeoip-dev geoip-bin python-dev starman ntp
+apt-get install -y $packages
 
 # set up the firewall
 bash firewall.sh
