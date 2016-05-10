@@ -31,7 +31,7 @@ fi
 
 if [ "$VER" = "16.04" -a -z "$(grep -e '^deb .*archive.ubuntu.com/ubuntu/.* xenial .*multiverse.*$' /etc/apt/sources.list)" \
     -a ! -f /etc/apt/sources.list.d/multiverse.list ]; then
-    echo "deb http://us.archive.ubuntu.com/ubuntu/ xenial multiverse" >> /etc/apt/sources.list.d/multiverse.list
+    echo "deb http://archive.ubuntu.com/ubuntu/ xenial multiverse" >> /etc/apt/sources.list.d/multiverse.list
 fi
 
 wget -O - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
