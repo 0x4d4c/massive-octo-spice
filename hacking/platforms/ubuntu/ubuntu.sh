@@ -29,16 +29,21 @@ if [ "$VER" = "14.04" -a ! -f /etc/apt/sources.list.d/chris-lea-zeromq-trusty.li
     echo "yes" | add-apt-repository "ppa:maxmind/ppa"
 fi
 
-if [ "$VER" = "16.04" -a -z "$(grep -e '^deb .*archive.ubuntu.com/ubuntu/.* xenial .*multiverse.*$' /etc/apt/sources.list)" \
-    -a ! -f /etc/apt/sources.list.d/multiverse.list ]; then
-    echo "deb http://archive.ubuntu.com/ubuntu/ xenial multiverse" >> /etc/apt/sources.list.d/multiverse.list
-fi
-
 wget -O - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
 if [ -f /etc/apt/sources.list.d/elasticsearch.list ]; then
     echo "sources.list.d/elasticsearch.list already exists, skipping..."
 else
-    echo "deb http://packages.elasticsearch.org/elasticsearch/1.7/debian stable main" >> /etc/apt/sources.list.d/elasticsearch.list
+    if [ "$VER" = "14.04" ]; then
+        ES_VERSION="1.4"
+    elif [ "$VER" = "16.04" ]; then
+        ES_VERSION="1.7"
+    fi
+    echo "deb http://packages.elasticsearch.org/elasticsearch/${ES_VERSION}/debian stable main" >> /etc/apt/sources.list.d/elasticsearch.list
+fi
+
+if [ "$VER" = "16.04" -a -z "$(grep -e '^deb .*archive.ubuntu.com/ubuntu/.* xenial .*multiverse.*$' /etc/apt/sources.list)" \
+    -a ! -f /etc/apt/sources.list.d/multiverse.list ]; then
+    echo "deb http://archive.ubuntu.com/ubuntu/ xenial multiverse" >> /etc/apt/sources.list.d/multiverse.list
 fi
 
 debconf-set-selections <<< "postfix postfix/mailname string localhost"
