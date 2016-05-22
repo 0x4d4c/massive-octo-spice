@@ -21,5 +21,5 @@ if [ -z `grep -l '127.0.0.1' /etc/resolvconf/resolv.conf.d/base` ]; then
     echo 'adding 127.0.0.1 as nameserver'
     echo "nameserver 127.0.0.1" >> /etc/resolvconf/resolv.conf.d/base
     echo "restarting network..."
-    ifdown eth0 && sudo ifup eth0
+    service networking restart
 fi
