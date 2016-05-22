@@ -103,7 +103,11 @@ if [ -z `getent passwd $MYUSER` ]; then
 fi
 
 echo 'starting elastic search'
-update-rc.d elasticsearch defaults 95 10
+if [ "$VER" = "14.04" ]; then
+    update-rc.d elasticsearch defaults 95 10
+elif [ "$VER" = "16.04" ]; then
+    systemctl enable elasticsearch
+fi
 service elasticsearch restart
 
 set +e
